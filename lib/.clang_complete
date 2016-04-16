@@ -1,0 +1,5 @@
+-Iinc
+-Iinc/core
+-Iinc/peripherals
+-Wall
+-Wdouble-promotion
