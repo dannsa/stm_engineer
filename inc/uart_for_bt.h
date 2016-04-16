@@ -7,6 +7,8 @@
  #ifndef UART_FOR_BT_H
  #define UART_FOR_BT_H
 
+// Configuration
+void usart2_configuration();
 // One char send
 void xuart_sendChar(uint8_t c, USART_TypeDef* USARTx);
 // String send

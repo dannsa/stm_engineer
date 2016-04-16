@@ -6,11 +6,16 @@
 int main(void)
 {
     init_board();
-    
+    usart2_configuration();
+    uint16_t slow = 100;
     for(;;)
     {
-        delay_ms(100);
+        delay_ms(slow);
         GPIOD->ODR ^= (0xF << 12);           // Toggle the pin
+        if(xuart_getChar(USART2))
+        {
+            slow = 1000;
+        }
     }
     return 0;
 }
@@ -26,10 +31,10 @@ void init_board()
     //Clock enable
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN;
     __asm("dsb");  //Stall after clock setup
-    
+
     // GPIOD P12-15 output mode
     GPIOD->MODER |=  0x55 << 24;
-    
+
     // YAYA with stdperiph ...
     // Configure PD12, PD13, PD14 and PD15 in output pushpull mode
     // GPIO_InitTypeDef  GPIO_InitStructure;
