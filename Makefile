@@ -1,6 +1,6 @@
 # Sources
 SRCS = main.c stm32f4xx_it.c system_stm32f4xx.c syscalls.c systick.c\
-  uart_for_bt.c
+  uart_for_bt.c adc_lib.c
 
 # ST link direcotry for flashing
 STLINK=/usr/bin/
