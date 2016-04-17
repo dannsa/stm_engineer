@@ -1,5 +1,5 @@
 # Sources
-SRCS = main.c stm32f4xx_it.c system_stm32f4xx.c syscalls.c systick.c\
+SRCS = main.c stm32f4xx_it.c system_stm32f4xx.c  systick.c\
   uart_for_bt.c adc_lib.c
 
 # ST link direcotry for flashing
@@ -28,7 +28,7 @@ CC=arm-none-eabi-gcc
 OBJCOPY=arm-none-eabi-objcopy
 SIZE=arm-none-eabi-size
 
-CFLAGS  = -std=gnu99 -g -O2 -Wall -Tstm32_flash.ld
+CFLAGS  = -ggdb -std=gnu99 -g -O2 -Wall -Tstm32_flash.ld
 CFLAGS += -mlittle-endian -mthumb -mthumb-interwork -nostartfiles -mcpu=cortex-m4
 
 ifeq ($(FLOAT_TYPE), hard)
@@ -52,6 +52,9 @@ SRCS += lib/startup_stm32f4xx.s
 
 OBJS = $(SRCS:.c=.o)
 
+# for debuging
+SEMIHOSTING_FLAGS = --specs=rdimon.specs -lc -lrdimon
+
 ###################################################
 
 .PHONY: lib proj
@@ -65,7 +68,7 @@ lib:
 proj: 	$(OUTPATH)/$(PROJ_NAME).elf
 
 $(OUTPATH)/$(PROJ_NAME).elf: $(SRCS)
-	$(CC) $(CFLAGS) $^ -o $@ -Llib -lstm32f4 -lm
+	$(CC) $(CFLAGS) -DUSE_DEBUG $(SEMIHOSTING_FLAGS) $^ -o $@ -Llib -lstm32f4 -lm 
 	$(OBJCOPY) -O ihex $(OUTPATH)/$(PROJ_NAME).elf $(OUTPATH)/$(PROJ_NAME).hex
 	$(OBJCOPY) -O binary $(OUTPATH)/$(PROJ_NAME).elf $(OUTPATH)/$(PROJ_NAME).bin
 

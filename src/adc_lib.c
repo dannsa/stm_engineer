@@ -12,7 +12,7 @@ void adc_configuration()
     //First case for simple configuration to measure ext voltage:
 
     //some gpio configuration:
-    //RCC->APB2ENR |= RCC_APB2ENR_ADC1EN;
+    RCC->APB2ENR |= RCC_APB2ENR_ADC1EN;
     RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN;
     GPIOA->MODER |= (0x3 << 0);
 

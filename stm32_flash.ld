@@ -113,7 +113,7 @@ SECTIONS
     . = ALIGN(4);
     PROVIDE ( end = . );
     PROVIDE ( _end = . );
-  /* PROVIDE ( __end__ = . );  *** uncomment for semihosting debug prints*/
+    PROVIDE ( __end__ = . );  /*** uncomment for semihosting debug prints*/
     . = . + _Min_Heap_Size;
     . = . + _Min_Stack_Size;
     . = ALIGN(4);

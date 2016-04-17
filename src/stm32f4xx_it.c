@@ -1,6 +1,7 @@
 #include "stm32f4xx_it.h"
 #include "systick.h"
 #include "main.h"
+#include "semihosting.h"
 
 /**
   * @brief   This function handles NMI exception.
@@ -103,9 +104,11 @@ void SysTick_Handler(void)
 extern int xuart_getChar(USART_TypeDef* USARTx);
 void USART2_IRQHandler(void)
 {
-    if(xuart_getChar(USART2))
+    uint8_t ch = xuart_getChar(USART2);
+    if(ch)
     {
         time_period = 1000;
+        dbg_log("USART: %d",ch);
     }
 }
 
