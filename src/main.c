@@ -4,18 +4,13 @@
 #include "uart_for_bt.h"
 
 int main(void)
-{
+{   time_period = 100;
     init_board();
     usart2_configuration();
-    uint16_t slow = 100;
     for(;;)
     {
-        delay_ms(slow);
+        delay_ms(time_period);
         GPIOD->ODR ^= (0xF << 12);           // Toggle the pin
-        if(xuart_getChar(USART2))
-        {
-            slow = 1000;
-        }
     }
     return 0;
 }

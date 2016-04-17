@@ -8,6 +8,7 @@
 #include <math.h>
 #include "stm32f4xx_conf.h"
 
+uint16_t time_period;
 // Start the board clocks, leds etc.
 void init_board();
 

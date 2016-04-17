@@ -100,6 +100,15 @@ void SysTick_Handler(void)
     ticks_handler();
 }
 
+extern int xuart_getChar(USART_TypeDef* USARTx);
+void USART2_IRQHandler(void)
+{
+    if(xuart_getChar(USART2))
+    {
+        time_period = 1000;
+    }
+}
+
 /******************************************************************************/
 /*                 STM32F4xx Peripherals Interrupt Handlers                   */
 /*  Add here the Interrupt Handler for the used peripheral(s) (PPP), for the  */
