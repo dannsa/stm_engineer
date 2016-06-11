@@ -33,7 +33,9 @@ CFLAGS += -Iinc -Iinc/core -Iinc/peripherals
 #SRCS  = stm32f4_discovery.c
 SRCS = misc.c  stm32f4xx_rcc.c stm32f4xx_adc.c \
   stm32f4xx_gpio.c\
-  stm32f4xx_usart.c \
+  stm32f4xx_usart.c\
+	stm32f4xx_dma.c\
+	stm32f4xx_tim.c
 
 #SRCS = misc.c stm32f4xx_dma.c stm32f4xx_rcc.c stm32f4xx_adc.c \
 	stm32f4xx_exti.c stm32f4xx_rng.c stm32f4xx_can.c stm32f4xx_flash.c \

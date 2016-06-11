@@ -1,6 +1,18 @@
 build/
+lib/*
 *.bin
 *.elf
 *.hex
 *.o
 *.a
+
+#files being edited
+*~
+# make and build files
+*.lst
+*.o
+*. o
+*.eep
+*.lss
+*.map
+*.sym

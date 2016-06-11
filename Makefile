@@ -53,7 +53,7 @@ SRCS += lib/startup_stm32f4xx.s
 OBJS = $(SRCS:.c=.o)
 
 # for debuging
-SEMIHOSTING_FLAGS = --specs=rdimon.specs -lc -lrdimon
+#SEMIHOSTING_FLAGS = --specs=rdimon.specs -lc -lrdimon $(SEMIHOSTING_FLAGS)
 
 ###################################################
 
@@ -66,9 +66,8 @@ lib:
 	$(MAKE) -C lib FLOAT_TYPE=$(FLOAT_TYPE)
 
 proj: 	$(OUTPATH)/$(PROJ_NAME).elf
-
 $(OUTPATH)/$(PROJ_NAME).elf: $(SRCS)
-	$(CC) $(CFLAGS) -DUSE_DEBUG $(SEMIHOSTING_FLAGS) $^ -o $@ -Llib -lstm32f4 -lm 
+	$(CC) $(CFLAGS) -DUSE_DEBUG  $^ -o $@ -Llib -lstm32f4 -lm
 	$(OBJCOPY) -O ihex $(OUTPATH)/$(PROJ_NAME).elf $(OUTPATH)/$(PROJ_NAME).hex
 	$(OBJCOPY) -O binary $(OUTPATH)/$(PROJ_NAME).elf $(OUTPATH)/$(PROJ_NAME).bin
 

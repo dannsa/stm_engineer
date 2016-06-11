@@ -2,6 +2,7 @@
 #include "systick.h"
 #include "main.h"
 #include "semihosting.h"
+#include "uart_for_bt.h"
 
 /**
   * @brief   This function handles NMI exception.
@@ -101,16 +102,42 @@ void SysTick_Handler(void)
     ticks_handler();
 }
 
-extern int xuart_getChar(USART_TypeDef* USARTx);
-void USART2_IRQHandler(void)
+
+void USART3_IRQHandler(void)
 {
-    uint8_t ch = xuart_getChar(USART2);
+    char ch = xuart_getChar(USART3);
     if(ch)
     {
-        time_period = 1000;
-        dbg_log("USART: %d",ch);
+        //startMeas = 1;
     }
 }
+
+void DMA2_Stream0_IRQHandler(void)
+{
+    if(DMA_GetITStatus(DMA2_Stream0, DMA_IT_HTIF0))
+    {
+        DMA_ClearITPendingBit(DMA2_Stream0, DMA_IT_HTIF0);
+
+        //dma_send_bt((uint32_t)&partADC[0], 1);
+        //delay_ms(1);
+        //dma_send_bt((uint32_t)&ADCConvertedValues[0], BUFFERSIZE);
+
+        //GPIOD->ODR ^= (0xF << 12);
+    }
+ 
+    // Transfer complete
+    if(DMA_GetITStatus(DMA2_Stream0, DMA_IT_TCIF0))
+    {
+        // Clear it bit
+        DMA_ClearITPendingBit(DMA2_Stream0, DMA_IT_TCIF0);
+
+        DMA_Cmd(DMA2_Stream0, DISABLE);
+        //dma_send_bt((uint32_t)&ADCConvertedValues[0], BUFFERSIZE*2);
+        endOfMeasurement = 1;
+        GPIOD->ODR ^= (0xF << 12);
+    }
+}
+
 
 /******************************************************************************/
 /*                 STM32F4xx Peripherals Interrupt Handlers                   */

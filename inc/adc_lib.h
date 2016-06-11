@@ -9,6 +9,8 @@
 
 #include "stm32f4xx_conf.h"
 // Configuration
-void adc_configuration();
+void ADC_Configuration();
+void ADC_DMA_config(void);
+void ADC_TIMER_trigger_conf(void);
 
 #endif /* ADC_LIB_H */
